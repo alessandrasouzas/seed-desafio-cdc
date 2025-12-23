@@ -9,7 +9,6 @@ data class Autor (
     val instante: LocalDateTime = LocalDateTime.now()
 ) {
     init {
-        println("Criando novo autor!")
         require(nome.isNotBlank())
         require(email.isNotBlank())
         require(descricao.length <= 400)
