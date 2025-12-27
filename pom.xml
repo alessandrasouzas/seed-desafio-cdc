@@ -51,6 +51,7 @@
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-reflect</artifactId>
 		</dependency>
+		<!-- Kotlin -->
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib</artifactId>
@@ -61,14 +62,40 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Spring Boot básico -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- Testes -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<!-- Remove Mockito (vamos usar MockK) -->
+				<exclusion>
+					<groupId>org.mockito</groupId>
+					<artifactId>mockito-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
+		<!-- MockK -->
+		<dependency>
+			<groupId>io.mockk</groupId>
+			<artifactId>mockk-jvm</artifactId>
+			<version>1.14.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JUnit 5 -->
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-test-junit5</artifactId>
+			<version>${kotlin.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -84,7 +111,28 @@
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
 				<artifactId>kotlin-maven-plugin</artifactId>
+				<version>${kotlin.version}</version>
+
+				<executions>
+					<execution>
+						<id>compile</id>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>test-compile</id>
+						<goals>
+							<goal>test-compile</goal>
+						</goals>
+					</execution>
+
+				</executions>
+
 				<configuration>
+					<jvmTarget>17</jvmTarget>
+
 					<args>
 						<arg>-Xjsr305=strict</arg>
 					</args>
@@ -111,6 +159,12 @@
 						<version>${kotlin.version}</version>
 					</dependency>
 				</dependencies>
+
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
 			</plugin>
 		</plugins>
 	</build>
