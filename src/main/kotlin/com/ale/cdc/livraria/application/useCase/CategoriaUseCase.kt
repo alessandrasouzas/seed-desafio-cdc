@@ -10,8 +10,11 @@ class CategoriaUseCase (
     private val categoriaRepository: CategoriaRepositoryPort
 ){
     fun adicionarCategoria(categoria: Categoria) {
-        if (categoriaRepository.existsByNome(categoria.nome))
-            throw CategoriaException(categoria.nome)
-        else categoriaRepository.salvar(categoria)
+        val categoriaNormalizada = Categoria.criar(categoria.nome)
+
+        if (categoriaRepository.existsByNome(categoriaNormalizada.nome))
+            throw CategoriaException(categoriaNormalizada.nome)
+        else categoriaRepository.salvar(categoriaNormalizada)
     }
+
 }

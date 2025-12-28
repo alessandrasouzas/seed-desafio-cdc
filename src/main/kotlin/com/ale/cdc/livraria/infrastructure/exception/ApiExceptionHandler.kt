@@ -22,9 +22,9 @@ class ApiExceptionHandler {
     @ExceptionHandler(CategoriaException::class)
     fun handle(ex: CategoriaException): ResponseEntity<MessageError> =
         ResponseEntity
-            .status(HttpStatus.UNPROCESSABLE_ENTITY)
+            .status(HttpStatus.BAD_REQUEST)
             .body(MessageError(
-                code = 422.toString(),
+                code = 400.toString(),
                 message = "Categoria já cadastrada!"
             ))
 }

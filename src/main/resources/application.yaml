@@ -14,3 +14,5 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+## database -> http://localhost:8080/h2-console

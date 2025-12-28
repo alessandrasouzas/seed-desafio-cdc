@@ -2,6 +2,7 @@ package com.ale.cdc.livraria.infrastructure.persistence.entity
 
 import com.ale.cdc.livraria.domain.Categoria
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotBlank
 
 @Entity
 @Table(name = "categoria")
@@ -11,6 +12,7 @@ class CategoriaEntity (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     @Column(unique = true)
+    @field:NotBlank
     val nome: String
 ){
 
