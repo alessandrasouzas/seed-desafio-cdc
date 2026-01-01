@@ -20,7 +20,7 @@ data class Livro (
         require(preco>=20) { "Preço é obrigatório" }
         require(numero_Paginas>=100) { "Numero de paginas é obrigatório" }
         require(isbn.isNotBlank()) { "ISBN é obrigatório" }
-        require(!data_publicacao.isAfter(LocalDate.now().plusYears(1))) {"Data de publicação não pode ser superior a 1 ano no futuro" }
+        require(data_publicacao.isAfter(LocalDate.now().plusDays(1))) {"Data de publicação deve ser superior a 1 dia no futuro" }
         requireNotNull(categoria)
         requireNotNull(autor)
     }

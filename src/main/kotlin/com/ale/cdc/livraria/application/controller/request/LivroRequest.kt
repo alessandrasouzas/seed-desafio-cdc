@@ -27,6 +27,7 @@ data class LivroRequest(
     val isbn: String,
 
     @field:NotNull
+    @Future
     @JsonFormat(pattern = "yyyy-MM-dd")
     val dataPublicacao: LocalDate,
 
@@ -44,9 +45,9 @@ data class LivroRequest(
         require(preco>=20) { "Preço é obrigatório" }
         require(numeroPaginas>=100) { "Numero de paginas é obrigatório" }
         require(isbn.isNotBlank()) { "ISBN é obrigatório" }
-        require(!dataPublicacao.isAfter(LocalDate.now().plusYears(1))) {"Data de publicação não pode ser superior a 1 ano no futuro" }
-        requireNotNull(categoria)
-        requireNotNull(autor)
+        require(dataPublicacao.isAfter(LocalDate.now().plusDays(1))) {"Data de publicação deve ser superior a 1 dia no futuro" }
+        requireNotNull(categoria) {"Categoria é obrigatória"}
+        requireNotNull(autor) {"Autor é obrigatório"}
     }
 
     fun toDomain(): Livro {
