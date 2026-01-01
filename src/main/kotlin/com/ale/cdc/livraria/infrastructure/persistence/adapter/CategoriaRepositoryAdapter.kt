@@ -13,13 +13,10 @@ class CategoriaRepositoryAdapter (
 
     override fun salvar(categoria: Categoria) {
         val entity = CategoriaEntity.Companion.toEntity(categoria)
-        val salvo = jpaRepository.save(entity)
-        salvo.toDomain()
+        jpaRepository.save(entity)
     }
 
     override fun existsByNome(nome: String): Boolean {
         return jpaRepository.existsByNome(nome)
-        return true
     }
-
 }

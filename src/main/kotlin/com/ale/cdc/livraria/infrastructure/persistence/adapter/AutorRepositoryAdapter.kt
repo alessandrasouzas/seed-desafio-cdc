@@ -13,8 +13,7 @@ class AutorRepositoryAdapter(
 
     override fun salvar(autor: Autor) {
         val entity = AutorEntity.Companion.toEntity(autor)
-        val salvo = jpaRepository.save(entity)
-        salvo.toDomain()
+        jpaRepository.save(entity)
     }
 
     override fun existePorEmail(email: String): Boolean {
