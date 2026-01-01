@@ -11,8 +11,8 @@ data class Livro (
     val numero_Paginas: Int,
     val isbn: String,
     val data_publicacao: LocalDate,
-    val categoria: String,
-    val autor: String,
+    val autor: Autor?,
+    val categoria: Categoria?
 ){
     init {
         require(titulo.isNotBlank()) { "Titulo é obrigatório" }
@@ -21,7 +21,5 @@ data class Livro (
         require(numero_Paginas>=100) { "Numero de paginas é obrigatório" }
         require(isbn.isNotBlank()) { "ISBN é obrigatório" }
         require(data_publicacao.isAfter(LocalDate.now().plusDays(1))) {"Data de publicação deve ser superior a 1 dia no futuro" }
-        requireNotNull(categoria)
-        requireNotNull(autor)
     }
 }

@@ -19,4 +19,8 @@ class AutorRepositoryAdapter(
     override fun existePorEmail(email: String): Boolean {
         return jpaRepository.existsByEmail(email)
     }
+
+    override fun buscaPorId(id: Long): AutorEntity {
+        return jpaRepository.getReferenceById(id)
+    }
 }

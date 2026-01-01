@@ -7,6 +7,7 @@ import java.time.LocalDate
 @Entity
 @Table(name = "livros")
 data class LivroEntity(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -19,16 +20,22 @@ data class LivroEntity(
     @Column(unique = true)
     val isbn: String,
     val data_publicacao: LocalDate,
-    val autor: String,
-    val categoria: String
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id")
+    val autor: AutorEntity,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
+    val categoria: CategoriaEntity
 ){
 
     companion object {
         fun toEntity(
-            livro: Livro
+            livro: Livro,
+            autorEntity: AutorEntity,
+            categoriaEntity: CategoriaEntity
         ): LivroEntity =
             LivroEntity(
-                id = livro.id,
                 titulo = livro.titulo,
                 resumo = livro.resumo,
                 sumario = livro.sumario,
@@ -36,22 +43,23 @@ data class LivroEntity(
                 numero_Paginas = livro.numero_Paginas,
                 isbn = livro.isbn,
                 data_publicacao = livro.data_publicacao,
-                autor = livro.autor,
-                categoria = livro.categoria
+                autor = autorEntity,
+                categoria = categoriaEntity
             )
     }
 
     fun toDomain(): Livro =
         Livro(
-            id = this.id,
-            titulo = this.titulo,
-            resumo = this.resumo,
-            sumario = this.sumario,
-            preco = this.preco,
-            numero_Paginas = this.numero_Paginas,
-            isbn = this.isbn,
-            data_publicacao = this.data_publicacao,
-            autor = this.autor,
-            categoria = this.categoria
+            id = id,
+            titulo = titulo,
+            resumo = resumo,
+            sumario = sumario,
+            preco = preco,
+            numero_Paginas = numero_Paginas,
+            isbn = isbn,
+            data_publicacao = data_publicacao,
+            autor = autor.toDomain(),
+            categoria = categoria.toDomain()
         )
+
 }
