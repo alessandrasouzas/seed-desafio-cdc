@@ -8,12 +8,12 @@ import java.time.LocalDate
 data class LivroResponse(
     val id: Long,
     val titulo: String,
-    val resumo: String,
-    val sumario: String,
-    val preco: Double,
-    val numero_Paginas: Int,
-    val isbn: String,
-    val data_lancamento: LocalDate,
+    val resumo: String?,
+    val sumario: String?,
+    val preco: Double?,
+    val numero_Paginas: Int?,
+    val isbn: String?,
+    val data_lancamento: LocalDate?,
     val autor: Autor?,
     val categoria: Categoria?
 ) {
@@ -34,4 +34,5 @@ data class LivroResponse(
             )
         }
     }
+
 }

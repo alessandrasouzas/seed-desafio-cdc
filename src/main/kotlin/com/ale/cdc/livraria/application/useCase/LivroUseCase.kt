@@ -1,6 +1,7 @@
 package com.ale.cdc.livraria.application.useCase
 
 import com.ale.cdc.livraria.application.controller.response.LivroResponse
+import com.ale.cdc.livraria.application.controller.response.LivroTituloResponse
 import com.ale.cdc.livraria.application.port.AutorRepositoryPort
 import com.ale.cdc.livraria.application.port.CategoriaRepositoryPort
 import com.ale.cdc.livraria.application.port.LivroRepositoryPort
@@ -46,6 +47,16 @@ class LivroUseCase (
     fun buscarLivros(): List<LivroResponse> {
         return livroRepositoryPort.buscarLivros()
             .map { LivroResponse.toResponse(it) }
+    }
+
+    fun buscarTitulos(): List<LivroTituloResponse> {
+        return livroRepositoryPort.buscarTitulos()
+            .map {
+                LivroTituloResponse(
+                    id = it.id,
+                    titulo = it.titulo
+                )
+            }
     }
 
 }
