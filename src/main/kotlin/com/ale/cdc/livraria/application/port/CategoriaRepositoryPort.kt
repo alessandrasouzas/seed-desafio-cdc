@@ -7,4 +7,5 @@ interface CategoriaRepositoryPort {
     fun salvar(categoria: Categoria)
     fun existsByNome(nome: String): Boolean
     fun buscaPorId(id: Long): CategoriaEntity
+    fun existePorId(id: Long): Boolean
 }

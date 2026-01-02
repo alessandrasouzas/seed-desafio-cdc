@@ -1,17 +1,29 @@
 package com.ale.cdc.livraria.application.useCase
 
+import com.ale.cdc.livraria.application.port.AutorRepositoryPort
+import com.ale.cdc.livraria.application.port.CategoriaRepositoryPort
 import com.ale.cdc.livraria.application.port.LivroRepositoryPort
 import com.ale.cdc.livraria.application.useCase.command.CriarLivroCommand
 import com.ale.cdc.livraria.domain.Livro
+import com.ale.cdc.livraria.domain.exception.AutorNotFoundException
+import com.ale.cdc.livraria.domain.exception.CategoriaNotFoundException
 import com.ale.cdc.livraria.domain.exception.TituloException
 import org.springframework.stereotype.Service
 
 @Service
 class LivroUseCase (
-    private val livroRepositoryPort: LivroRepositoryPort
+    private val livroRepositoryPort: LivroRepositoryPort,
+    private val autorRepositoryPort: AutorRepositoryPort,
+    private val categoriaRepositoryPort: CategoriaRepositoryPort
 ) {
 
     fun adicionarLivro(cmd: CriarLivroCommand) {
+
+        if(!autorRepositoryPort.existePorId(cmd.autorId))
+            throw AutorNotFoundException(cmd.autorId)
+
+        if(!categoriaRepositoryPort.existePorId(cmd.categoriaId))
+            throw CategoriaNotFoundException(cmd.categoriaId)
 
         val livro = Livro(
             titulo = cmd.titulo,
@@ -29,5 +41,4 @@ class LivroUseCase (
             throw TituloException(livro.titulo)
         else livroRepositoryPort.salvar(livro, cmd.autorId, cmd.categoriaId)
     }
-
 }

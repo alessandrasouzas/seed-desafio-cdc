@@ -23,4 +23,8 @@ class CategoriaRepositoryAdapter (
     override fun buscaPorId(id: Long): CategoriaEntity {
         return jpaRepository.getReferenceById(id)
     }
+
+    override fun existePorId(id: Long): Boolean {
+        return jpaRepository.existsById(id)
+    }
 }

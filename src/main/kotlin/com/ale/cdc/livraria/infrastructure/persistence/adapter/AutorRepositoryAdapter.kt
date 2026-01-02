@@ -23,4 +23,8 @@ class AutorRepositoryAdapter(
     override fun buscaPorId(id: Long): AutorEntity {
         return jpaRepository.getReferenceById(id)
     }
+
+    override fun existePorId(id: Long): Boolean {
+        return jpaRepository.existsById(id)
+    }
 }

@@ -7,4 +7,5 @@ interface AutorRepositoryPort {
     fun salvar(autor: Autor)
     fun existePorEmail(email: String): Boolean
     fun buscaPorId(id: Long): AutorEntity
+    fun existePorId(id: Long): Boolean
 }
