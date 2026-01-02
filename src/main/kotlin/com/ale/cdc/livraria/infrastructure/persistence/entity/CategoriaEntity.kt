@@ -27,6 +27,7 @@ class CategoriaEntity (
     // transforma um objeto ja existente do banco
     fun toDomain(): Categoria =
         Categoria(
+            id = id,
             nome = nome
         )
 }

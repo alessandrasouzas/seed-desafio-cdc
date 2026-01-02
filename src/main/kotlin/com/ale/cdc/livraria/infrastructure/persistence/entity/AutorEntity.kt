@@ -31,6 +31,7 @@ class AutorEntity (
     // transforma um objeto ja existente do banco
     fun toDomain(): Autor =
         Autor(
+            id = id,
             nome = nome,
             email = email,
             descricao = descricao,

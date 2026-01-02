@@ -10,11 +10,21 @@ class CategoriaUseCase (
     private val categoriaRepository: CategoriaRepositoryPort
 ){
     fun adicionarCategoria(categoria: Categoria) {
-        val categoriaNormalizada = Categoria.criar(categoria.nome)
 
-        if (categoriaRepository.existsByNome(categoriaNormalizada.nome))
-            throw CategoriaException(categoriaNormalizada.nome)
-        else categoriaRepository.salvar(categoriaNormalizada)
+        //garante que a categoria deve sempre ser criada com o nome normalizado (ex: Suspense) para evitar duplicidade semântica
+        categoria.nome = normalizaNome(categoria.nome)
+
+        if (categoriaRepository.existsByNome(categoria.nome))
+            throw CategoriaException(categoria.nome)
+        else categoriaRepository.salvar(categoria)
     }
 
+    private fun normalizaNome(nome: String): String {
+        val normalizado = nome
+            .trim()
+            .lowercase()
+            .replaceFirstChar { it.titlecase() }
+
+        return normalizado
+    }
 }

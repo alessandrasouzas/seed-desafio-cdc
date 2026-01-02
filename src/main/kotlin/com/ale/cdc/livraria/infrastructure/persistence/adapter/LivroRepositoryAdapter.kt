@@ -24,6 +24,11 @@ class LivroRepositoryAdapter (
         jpaRepository.save(entity)
     }
 
+    override fun buscarLivros(): List<Livro> {
+        return jpaRepository.findAll()
+            .map { it.toDomain() }
+    }
+
     override fun existePorTitulo(titulo: String): Boolean {
         return jpaRepository.existsByTitulo(titulo)
     }
