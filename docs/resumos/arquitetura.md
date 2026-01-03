@@ -24,45 +24,77 @@ A regra mais importante:
 ## 2. Visão Geral das Camadas
 
 ```
-
-Controller
-↓
-Use Case
-↓
-Ports (Interfaces)
-↓
-Adapters (JPA, External APIs)
-↓
-Banco de Dados
+┌─────────────────────────────────────────────┐
+│              CAMADA EXTERNA                 │
+│          (Adapters / Interfaces)            │
+│                                             │
+│  application.controller                     │
+│   ├─ AutorController                        │
+│   ├─ CategoriaController                    │
+│   └─ LivroController                        │
+│                                             │
+│  infrastructure.persistence.adapter         │
+│  infrastructure.persistence.jpa             │
+│                                             │
+└───────────────▲─────────────────────────────┘
+                │
+                │ (Ports)
+                │
+┌───────────────┴──────────────────────────────┐
+│              CAMADA DE APLICAÇÃO             │
+│               (Use Cases)                    │
+│                                              │
+│  application.useCase                         │
+│   ├─ AutorUseCase                            │
+│   ├─ CategoriaUseCase                        │
+│   └─ LivroUseCase                            │
+│                                              │
+│  application.port                            │
+│   ├─ Ports de entrada (input)                │
+│   └─ Ports de saída (output)                 │
+│                                              │
+└───────────────▲──────────────────────────────┘
+                │
+                │
+┌───────────────┴──────────────────────────────┐
+│                CAMADA DE DOMÍNIO             │
+│                 (Core)                       │
+│                                              │
+│  domain                                      │
+│   ├─ Autor                                   │
+│   ├─ Categoria                               │
+│   ├─ Livro                                   │
+│   └─ domain.exception                        │
+│                                              │
+│  (Regras de negócio puras, sem dependências) │
+└──────────────────────────────────────────────┘
 
 ````
+## 3.Desenho da Arquitetura
+![img.png](../img/interface.png)
 
 Dependências sempre apontam **para dentro**, nunca para fora.
 
+### Nome das camadas (resumido)
+
+1. **Domain (Core do sistema)**
+
+    * Entidades
+    * Regras de negócio
+    * Exceções de domínio
+
+2. **Application (Casos de Uso)**
+
+    * Orquestra o fluxo
+    * Define **Ports (interfaces)**
+    * Não conhece framework nem infraestrutura
+
+3. **Adapters / Infrastructure (Camada externa)**
+
+    * Controllers (entrada – REST)
+    * Persistência (JPA, adapters, entities)
+    * Implementações dos ports
 ---
-
-## 3. Camada de Domínio
-
-### 3.1 Entidades de Domínio
-
-As entidades de domínio representam o **modelo de negócio**, não o modelo do banco.
-
-Exemplo: `Livro`
-
-```kotlin
-data class Livro(
-    val id: Long? = null,
-    val titulo: String,
-    val resumo: String,
-    val sumario: String,
-    val preco: Double,
-    val numero_Paginas: Int,
-    val isbn: String,
-    val data_publicacao: LocalDate,
-    val categoria: Categoria,
-    val autor: Autor
-)
-````
 
 ### Características importantes:
 
@@ -91,43 +123,6 @@ Ele é responsável por:
 
 ---
 
-### 4.2 Exemplo: `AdicionarLivroUseCase`
-
-```kotlin
-class LivroUseCase(
-    private val livroRepository: LivroRepositoryPort,
-    private val autorRepository: AutorRepositoryPort,
-    private val categoriaRepository: CategoriaRepositoryPort
-) {
-
-    fun adicionarLivro(novoLivro: NovoLivro) {
-
-        val autor = autorRepository.buscarPorId(novoLivro.autorId)
-        val categoria = categoriaRepository.buscarPorId(novoLivro.categoriaId)
-
-        if (
-            livroRepository.existePorTitulo(novoLivro.titulo) ||
-            livroRepository.existePorIsbn(novoLivro.isbn)
-        ) {
-            throw Exception("Livro já cadastrado")
-        }
-
-        val livro = Livro(
-            titulo = novoLivro.titulo,
-            resumo = novoLivro.resumo,
-            sumario = novoLivro.sumario,
-            preco = novoLivro.preco,
-            numero_Paginas = novoLivro.numeroPaginas,
-            isbn = novoLivro.isbn,
-            data_publicacao = novoLivro.dataPublicacao,
-            autor = autor,
-            categoria = categoria
-        )
-
-        livroRepository.salvar(livro)
-    }
-}
-```
 
 ### Pontos-chave:
 
@@ -173,31 +168,6 @@ O Adapter é responsável por:
 ---
 
 ### 6.2 Conversão Domínio → Entity
-
-Exemplo: `LivroJpaAdapter`
-
-```kotlin
-class LivroJpaAdapter(
-    private val livroJpaRepository: LivroJpaRepository,
-    private val autorJpaRepository: AutorJpaRepository,
-    private val categoriaJpaRepository: CategoriaJpaRepository
-) : LivroRepositoryPort {
-
-    override fun salvar(livro: Livro) {
-
-        val autorEntity = autorJpaRepository.getReferenceById(livro.autor.id!!)
-        val categoriaEntity = categoriaJpaRepository.getReferenceById(livro.categoria.id!!)
-
-        val livroEntity = LivroEntity.toEntity(
-            livro = livro,
-            autorEntity = autorEntity,
-            categoriaEntity = categoriaEntity
-        )
-
-        livroJpaRepository.save(livroEntity)
-    }
-}
-```
 
 ### Por que buscar `AutorEntity` e `CategoriaEntity` aqui?
 
@@ -264,5 +234,3 @@ Essa estrutura garante que:
 * O **Use Case pense em negócio**
 * O **Adapter pense em persistência**
 * O **Domínio permaneça limpo e expressivo**
-
-Este arquivo deve ser mantido como referência viva do projeto.
