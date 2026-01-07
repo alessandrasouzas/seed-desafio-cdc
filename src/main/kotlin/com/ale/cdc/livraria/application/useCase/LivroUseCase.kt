@@ -9,6 +9,7 @@ import com.ale.cdc.livraria.application.useCase.command.CriarLivroCommand
 import com.ale.cdc.livraria.domain.livro.Livro
 import com.ale.cdc.livraria.domain.exception.AutorNotFoundException
 import com.ale.cdc.livraria.domain.exception.CategoriaNotFoundException
+import com.ale.cdc.livraria.domain.exception.LivroNotFoundException
 import com.ale.cdc.livraria.domain.exception.TituloException
 import com.ale.cdc.livraria.domain.livro.Isbn
 import com.ale.cdc.livraria.domain.livro.UrlCapa
@@ -61,5 +62,14 @@ class LivroUseCase (
                     titulo = it.titulo
                 )
             }
+    }
+
+    fun buscarLivro(id: Long): LivroResponse {
+        val result = try {
+            livroRepositoryPort.buscarLivro(id)
+        }catch (e: Exception){
+            throw LivroNotFoundException(id.toString())
+        }
+        return LivroResponse.toResponse(result)
     }
 }

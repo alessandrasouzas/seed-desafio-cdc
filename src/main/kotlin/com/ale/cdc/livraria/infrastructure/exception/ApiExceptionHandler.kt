@@ -4,6 +4,7 @@ import com.ale.cdc.livraria.domain.exception.AutorNotFoundException
 import com.ale.cdc.livraria.domain.exception.CategoriaException
 import com.ale.cdc.livraria.domain.exception.CategoriaNotFoundException
 import com.ale.cdc.livraria.domain.exception.EmailException
+import com.ale.cdc.livraria.domain.exception.LivroNotFoundException
 import com.ale.cdc.livraria.domain.exception.TituloException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,9 +17,9 @@ class ApiExceptionHandler {
     @ExceptionHandler(EmailException::class)
     fun handle(ex: EmailException): ResponseEntity<MessageError> =
         ResponseEntity
-            .status(HttpStatus.UNPROCESSABLE_ENTITY)
+            .status(HttpStatus.BAD_REQUEST)
             .body(MessageError(
-                code = 422.toString(),
+                code = 400.toString(),
                 message = "Email já cadastrado!"
             ))
 
@@ -58,4 +59,12 @@ class ApiExceptionHandler {
                 message = "Categoria não encontrada."
             ))
 
+    @ExceptionHandler(LivroNotFoundException::class)
+    fun handle(ex: LivroNotFoundException): ResponseEntity<MessageError> =
+        ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(MessageError(
+                code = 404.toString(),
+                message = "Livro não encontrado."
+            ))
 }
