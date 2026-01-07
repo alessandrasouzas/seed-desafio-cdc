@@ -13,6 +13,7 @@ data class Livro (
     val numeroPaginas: Int,
     val isbn: Isbn,
     val dataLancamento: LocalDate,
+    val capaLivro: UrlCapa,
     val autor: Autor?,
     val categoria: Categoria?
 ){

@@ -50,7 +50,6 @@ class AutorUseCaseTest {
         }
 
         assertEquals("Email já cadastrado: maria@email.com", exception.message)
-
     }
 
     @Test

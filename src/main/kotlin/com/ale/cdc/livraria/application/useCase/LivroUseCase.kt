@@ -11,6 +11,7 @@ import com.ale.cdc.livraria.domain.exception.AutorNotFoundException
 import com.ale.cdc.livraria.domain.exception.CategoriaNotFoundException
 import com.ale.cdc.livraria.domain.exception.TituloException
 import com.ale.cdc.livraria.domain.livro.Isbn
+import com.ale.cdc.livraria.domain.livro.UrlCapa
 import org.springframework.stereotype.Service
 import kotlin.collections.List
 
@@ -33,7 +34,8 @@ class LivroUseCase (
             titulo = cmd.titulo,
             resumo = cmd.resumo,
             sumario = cmd.sumario,
-            formatos = cmd.formato   ,
+            formatos = cmd.formato,
+            capaLivro = UrlCapa(cmd.capaUrl),
             numeroPaginas = cmd.numeroPaginas,
             isbn = Isbn(cmd.isbn),
             dataLancamento = cmd.dataPublicacao,

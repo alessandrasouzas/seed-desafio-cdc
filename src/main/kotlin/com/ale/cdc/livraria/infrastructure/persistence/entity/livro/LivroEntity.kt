@@ -3,6 +3,9 @@ package com.ale.cdc.livraria.infrastructure.persistence.entity.livro
 import com.ale.cdc.livraria.domain.livro.Livro
 import com.ale.cdc.livraria.domain.livro.Formato
 import com.ale.cdc.livraria.domain.livro.Isbn
+import com.ale.cdc.livraria.domain.livro.UrlCapa
+import com.ale.cdc.livraria.infrastructure.persistence.entity.AutorEntity
+import com.ale.cdc.livraria.infrastructure.persistence.entity.CategoriaEntity
 import jakarta.persistence.CollectionTable
 import jakarta.persistence.Column
 import jakarta.persistence.ElementCollection
@@ -27,6 +30,7 @@ data class LivroEntity(
     val titulo: String,
     val resumo: String,
     val sumario: String,
+    val capaUrl: String,
     val numeroPaginas: Int,
     @Column(unique = true)
     val isbn: String,
@@ -63,6 +67,7 @@ data class LivroEntity(
                         preco = it.preco
                     )
                 },
+                capaUrl = livro.capaLivro.toString(),
                 numeroPaginas = livro.numeroPaginas,
                 isbn = livro.isbn.codigoLivro,
                 data_publicacao = livro.dataLancamento,
@@ -77,6 +82,7 @@ data class LivroEntity(
             titulo = titulo,
             resumo = resumo,
             sumario = sumario,
+            capaLivro = UrlCapa(capaUrl),
             formatos =  formatos.map {
                 Formato(
                     tipo = it.tipo,

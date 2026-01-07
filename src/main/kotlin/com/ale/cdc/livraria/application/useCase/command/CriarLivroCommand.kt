@@ -9,6 +9,7 @@ data class CriarLivroCommand (
     val sumario: String,
     val formato: List<Formato>,
     val numeroPaginas: Int,
+    val capaUrl: String,
     val isbn: String,
     val dataPublicacao: LocalDate,
     val autorId: Long,

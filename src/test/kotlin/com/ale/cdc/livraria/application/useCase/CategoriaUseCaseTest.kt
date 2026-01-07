@@ -16,14 +16,14 @@ class CategoriaUseCaseTest {
     private val repository = mockk<CategoriaRepositoryPort>()
     private val useCase = CategoriaUseCase(repository)
 
-    private fun cat(): Categoria{
-        val categoria = Categoria (nome = "suspense")
-        return categoria
-    }
+    private fun categoriaValida() = Categoria (
+        id  =   1L,
+        nome = "Suspense"
+    )
 
     @Test
     fun `deve salvar uma categoria com sucesso`() {
-        val categoria = cat()
+        val categoria = categoriaValida()
 
         every { repository.existsByNome(any()) } returns false
         every { repository.salvar(any()) } just Runs //any() -> Teste de fluxo; testa “se passou por aqui”
@@ -42,7 +42,7 @@ class CategoriaUseCaseTest {
 
     @Test
     fun `nao deve permitir salvar categoria duplicada`() {
-        val categoria = cat()
+        val categoria = categoriaValida()
 
         every { repository.existsByNome(any()) } returns true
         every { repository.salvar(any()) } just Runs
@@ -63,4 +63,21 @@ class CategoriaUseCaseTest {
         }
     }
 
+    @Test
+    fun `deve lançar excecao quando nome ja existe`() {
+        val categoria = categoriaValida()
+
+        every { repository.existsByNome(any()) } returns true
+        every { repository.existsByNome(categoria.nome) } returns true
+
+        val exception = assertThrows<CategoriaException> {
+            useCase.adicionarCategoria(categoria)
+        }
+
+        assertEquals("Categoria já cadastrada: ${categoria.nome}", exception.message)
+
+        verify(exactly = 0) {
+            repository.salvar(any())
+        }
+    }
 }

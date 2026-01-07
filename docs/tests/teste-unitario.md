@@ -124,3 +124,6 @@ match { it.nome == "Suspense" }
 * Cobertura sem obsessão (foco em regra)
 
 ---
+> **Testes unitários devem validar comportamento, não apenas dados estáticos.**
+> O teste deve executar o método real (SUT), mockar apenas dependências externas (ex: repositório) e validar o resultado produzido.
+> Assim, qualquer mudança na regra de negócio quebra o teste, garantindo segurança na evolução do código.

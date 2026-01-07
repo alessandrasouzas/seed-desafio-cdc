@@ -1,6 +1,6 @@
 package com.ale.cdc.livraria.infrastructure.persistence.jpa
 
-import com.ale.cdc.livraria.infrastructure.persistence.entity.LivroEntity
+import com.ale.cdc.livraria.infrastructure.persistence.entity.livro.LivroEntity
 import com.ale.cdc.livraria.infrastructure.persistence.jpa.projection.LivroTituloProjection
 import org.springframework.data.jpa.repository.JpaRepository
 

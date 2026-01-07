@@ -15,6 +15,8 @@ data class LivroRequest(
     @field:Size(max = 500)
     val resumo: String,
 
+    val capaUrl: String,
+
     @field:NotBlank
     val sumario: String,
 
@@ -54,6 +56,7 @@ data class LivroRequest(
         resumo = resumo,
         sumario = sumario,
         formato = formatos,
+        capaUrl = capaUrl,
         numeroPaginas = numeroPaginas,
         isbn = isbn,
         dataPublicacao = dataPublicacao,
