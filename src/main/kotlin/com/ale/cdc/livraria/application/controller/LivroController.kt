@@ -31,4 +31,7 @@ class LivroController (
     fun buscarTitulos(): List<LivroTituloResponse> {
         return livroUseCase.buscarTitulos()
     }
+
+    //TODO: buscadetalhe do livro a partir de um id fornecido, deve retornar um novo response - LivroDetalheSiteResponse
+    // Refatorar Livro para incluir Value-Object (isbn, capalivro, formato?)
 }

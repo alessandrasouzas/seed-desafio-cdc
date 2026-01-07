@@ -6,12 +6,14 @@ import com.ale.cdc.livraria.application.port.LivroRepositoryPort
 import com.ale.cdc.livraria.application.useCase.command.CriarLivroCommand
 import com.ale.cdc.livraria.domain.exception.AutorNotFoundException
 import com.ale.cdc.livraria.domain.exception.TituloException
+import com.ale.cdc.livraria.domain.livro.*
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.*
+import java.math.BigDecimal
 import java.time.LocalDate
 
 class LivroUseCaseTest {
@@ -30,7 +32,12 @@ class LivroUseCaseTest {
         titulo = "Clean Architecture",
         resumo = "Resumo válido",
         sumario = "Sumário válido",
-        preco = 50.0,
+        formato = listOf(
+            Formato(
+                tipo = TipoFormato.IMPRESSO,
+                preco = BigDecimal("50.00")
+            )
+        ),
         numeroPaginas = 200,
         isbn = "123-456",
         dataPublicacao = LocalDate.now().plusDays(2),

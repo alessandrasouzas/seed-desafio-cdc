@@ -6,11 +6,13 @@ import com.ale.cdc.livraria.application.port.AutorRepositoryPort
 import com.ale.cdc.livraria.application.port.CategoriaRepositoryPort
 import com.ale.cdc.livraria.application.port.LivroRepositoryPort
 import com.ale.cdc.livraria.application.useCase.command.CriarLivroCommand
-import com.ale.cdc.livraria.domain.Livro
+import com.ale.cdc.livraria.domain.livro.Livro
 import com.ale.cdc.livraria.domain.exception.AutorNotFoundException
 import com.ale.cdc.livraria.domain.exception.CategoriaNotFoundException
 import com.ale.cdc.livraria.domain.exception.TituloException
+import com.ale.cdc.livraria.domain.livro.Isbn
 import org.springframework.stereotype.Service
+import kotlin.collections.List
 
 @Service
 class LivroUseCase (
@@ -31,10 +33,10 @@ class LivroUseCase (
             titulo = cmd.titulo,
             resumo = cmd.resumo,
             sumario = cmd.sumario,
-            preco = cmd.preco,
-            numero_Paginas = cmd.numeroPaginas,
-            isbn = cmd.isbn,
-            data_publicacao = cmd.dataPublicacao,
+            formatos = cmd.formato   ,
+            numeroPaginas = cmd.numeroPaginas,
+            isbn = Isbn(cmd.isbn),
+            dataLancamento = cmd.dataPublicacao,
             autor = null,
             categoria = null
         )
@@ -58,5 +60,4 @@ class LivroUseCase (
                 )
             }
     }
-
 }

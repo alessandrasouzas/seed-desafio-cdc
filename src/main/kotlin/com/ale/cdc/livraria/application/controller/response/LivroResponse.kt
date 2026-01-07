@@ -2,7 +2,8 @@ package com.ale.cdc.livraria.application.controller.response
 
 import com.ale.cdc.livraria.domain.Autor
 import com.ale.cdc.livraria.domain.Categoria
-import com.ale.cdc.livraria.domain.Livro
+import com.ale.cdc.livraria.domain.livro.Livro
+import com.ale.cdc.livraria.domain.livro.Formato
 import java.time.LocalDate
 
 data class LivroResponse(
@@ -10,10 +11,10 @@ data class LivroResponse(
     val titulo: String,
     val resumo: String?,
     val sumario: String?,
-    val preco: Double?,
-    val numero_Paginas: Int?,
+    val formato: List<Formato>,
+    val numeroPaginas: Int?,
     val isbn: String?,
-    val data_lancamento: LocalDate?,
+    val dataLancamento: LocalDate?,
     val autor: Autor?,
     val categoria: Categoria?
 ) {
@@ -25,10 +26,10 @@ data class LivroResponse(
                 titulo = livro.titulo,
                 resumo = livro.resumo,
                 sumario = livro.sumario,
-                preco = livro.preco,
-                numero_Paginas = livro.numero_Paginas,
-                isbn = livro.isbn,
-                data_lancamento = livro.data_publicacao,
+                formato = livro.formatos,
+                numeroPaginas = livro.numeroPaginas,
+                isbn = livro.isbn.codigoLivro,
+                dataLancamento = livro.dataLancamento,
                 autor = livro.autor,
                 categoria = livro.categoria
             )

@@ -1,12 +1,13 @@
 package com.ale.cdc.livraria.application.useCase.command
 
+import com.ale.cdc.livraria.domain.livro.Formato
 import java.time.LocalDate
 
 data class CriarLivroCommand (
     val titulo: String,
     val resumo: String,
     val sumario: String,
-    val preco: Double,
+    val formato: List<Formato>,
     val numeroPaginas: Int,
     val isbn: String,
     val dataPublicacao: LocalDate,

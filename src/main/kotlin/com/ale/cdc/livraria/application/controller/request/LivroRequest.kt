@@ -1,6 +1,7 @@
 package com.ale.cdc.livraria.application.controller.request
 
 import com.ale.cdc.livraria.application.useCase.command.CriarLivroCommand
+import com.ale.cdc.livraria.domain.livro.Formato
 import com.fasterxml.jackson.annotation.JsonFormat
 import jakarta.validation.constraints.*
 import java.time.LocalDate
@@ -17,8 +18,7 @@ data class LivroRequest(
     @field:NotBlank
     val sumario: String,
 
-    @field:DecimalMin("20.0")
-    val preco: Double,
+    val formatos: List<Formato>,
 
     @field:Min(100)
     val numeroPaginas: Int,
@@ -43,9 +43,7 @@ data class LivroRequest(
     init {
         require(titulo.isNotBlank()) { "Titulo é obrigatório" }
         require(resumo.isNotBlank() && resumo.length <= 500) { "Resumo é obrigatório" }
-        require(preco>=20) { "Preço é obrigatório" }
         require(numeroPaginas>=100) { "Numero de paginas é obrigatório" }
-        require(isbn.isNotBlank()) { "ISBN é obrigatório" }
         require(dataPublicacao.isAfter(LocalDate.now().plusDays(1))) {"Data de publicação deve ser superior a 1 dia no futuro" }
         requireNotNull(categoriaId) {"Categoria é obrigatória"}
         requireNotNull(autorId) {"Autor é obrigatório"}
@@ -55,7 +53,7 @@ data class LivroRequest(
         titulo = titulo,
         resumo = resumo,
         sumario = sumario,
-        preco = preco,
+        formato = formatos,
         numeroPaginas = numeroPaginas,
         isbn = isbn,
         dataPublicacao = dataPublicacao,

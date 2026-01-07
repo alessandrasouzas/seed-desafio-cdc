@@ -1,6 +1,6 @@
 package com.ale.cdc.livraria.application.controller.response
 
-import com.ale.cdc.livraria.domain.Livro
+import com.ale.cdc.livraria.domain.livro.Livro
 
 data class LivroTituloResponse(
     val id: Long,

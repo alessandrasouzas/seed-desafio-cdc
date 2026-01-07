@@ -3,7 +3,7 @@ package com.ale.cdc.livraria.infrastructure.persistence.adapter
 import com.ale.cdc.livraria.application.port.AutorRepositoryPort
 import com.ale.cdc.livraria.application.port.CategoriaRepositoryPort
 import com.ale.cdc.livraria.application.port.LivroRepositoryPort
-import com.ale.cdc.livraria.domain.Livro
+import com.ale.cdc.livraria.domain.livro.Livro
 import com.ale.cdc.livraria.infrastructure.persistence.entity.LivroEntity
 import com.ale.cdc.livraria.infrastructure.persistence.jpa.LivroRepositoryJpa
 import com.ale.cdc.livraria.infrastructure.persistence.jpa.projection.LivroTituloProjection
