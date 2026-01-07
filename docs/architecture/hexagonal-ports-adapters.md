@@ -71,7 +71,7 @@ A regra mais importante:
 
 ````
 ## 3.Desenho da Arquitetura
-![img.png](../img/interface.png)
+![img.png](interface.png)
 
 Dependências sempre apontam **para dentro**, nunca para fora.
 
