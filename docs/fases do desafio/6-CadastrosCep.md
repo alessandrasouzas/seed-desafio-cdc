@@ -3,18 +3,19 @@
 ---
 
 ## Necessidades
-Precisamos de um cadastro simples de países e seus respectivos estados.
-Cada país tem um nome e cada estado tem um nome e pertence a um país.
+* Precisamos de um cadastro simples de países e seus respectivos estados.
+* Cada país tem um nome e cada estado tem um nome e pertence a um país.
 
 ---
 
 ## Restrições para país
-o nome é obrigatório
-o nome é único
-restrição para estados
-o nome é obrigatório
-o nome é único
-o país é obrigatório
+* o nome é obrigatório
+* o nome é único
+
+## restrição para estados
+* o nome é obrigatório
+* o nome é único
+* o país é obrigatório
 
 ---
 
