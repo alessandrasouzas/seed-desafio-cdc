@@ -14,4 +14,5 @@ data class Autor (
         require(email.isNotBlank())
         require(descricao.length <= 400)
     }
+
 }

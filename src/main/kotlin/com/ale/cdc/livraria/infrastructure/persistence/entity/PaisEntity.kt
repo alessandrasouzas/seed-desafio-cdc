@@ -23,4 +23,9 @@ class PaisEntity (
             PaisEntity(nome = pais.nome)
     }
 
+    fun toDomain(): Pais = Pais(
+        id = id,
+        nome = nome
+    )
+
 }

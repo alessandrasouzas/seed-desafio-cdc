@@ -18,7 +18,6 @@ class LivroController (
     fun adicionarLivro(@RequestBody @Valid request: LivroRequest): ResponseEntity<Void> {
         val cmd = request.toCommand()
         livroUseCase.adicionarLivro(cmd)
-
         return ResponseEntity.ok().build()
     }
 

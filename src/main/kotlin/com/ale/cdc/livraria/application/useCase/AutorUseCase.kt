@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service
 class AutorUseCase (
     private val autorRepository: AutorRepositoryPort
 ){
+
     fun adicionarAutor(autor: Autor) {
-        if (autorRepository.existePorEmail(autor.email)) {
+        if (autorRepository.existePorEmail(autor.email))
             throw EmailException(autor.email)
-        }
-        else autorRepository.salvar(autor)
+
+        autorRepository.salvar(autor)
     }
 }

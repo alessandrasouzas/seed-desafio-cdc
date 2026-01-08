@@ -13,6 +13,7 @@ import com.ale.cdc.livraria.domain.exception.LivroNotFoundException
 import com.ale.cdc.livraria.domain.exception.TituloException
 import com.ale.cdc.livraria.domain.livro.Isbn
 import com.ale.cdc.livraria.domain.livro.UrlCapa
+import com.ale.cdc.livraria.domain.shared.NomeNormalizer
 import org.springframework.stereotype.Service
 import kotlin.collections.List
 
@@ -32,7 +33,7 @@ class LivroUseCase (
             throw CategoriaNotFoundException(cmd.categoriaId)
 
         val livro = Livro(
-            titulo = cmd.titulo,
+            titulo = NomeNormalizer.normalizar(cmd.titulo),
             resumo = cmd.resumo,
             sumario = cmd.sumario,
             formatos = cmd.formato,
@@ -46,7 +47,7 @@ class LivroUseCase (
 
         if(livroRepositoryPort.existePorTitulo(livro.titulo))
             throw TituloException(livro.titulo)
-        else livroRepositoryPort.salvar(livro, cmd.autorId, cmd.categoriaId)
+        livroRepositoryPort.salvar(livro, cmd.autorId, cmd.categoriaId)
     }
 
     fun buscarLivros(): List<LivroResponse> {

@@ -37,11 +37,11 @@ data class LivroEntity(
     val data_publicacao: LocalDate,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "autor_id")
-    val autor: com.ale.cdc.livraria.infrastructure.persistence.entity.AutorEntity,
+    val autor: AutorEntity,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
-    val categoria: com.ale.cdc.livraria.infrastructure.persistence.entity.CategoriaEntity,
+    val categoria: CategoriaEntity,
 
     @ElementCollection
     @CollectionTable(
