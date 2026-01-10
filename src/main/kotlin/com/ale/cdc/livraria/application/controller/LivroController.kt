@@ -6,14 +6,16 @@ import com.ale.cdc.livraria.application.controller.response.LivroResponse
 import com.ale.cdc.livraria.application.controller.response.LivroTituloResponse
 import com.ale.cdc.livraria.application.useCase.LivroUseCase
 import jakarta.validation.Valid
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/livros")
-class LivroController (
-    private val livroUseCase: LivroUseCase
-){
+class LivroController{
+
+    @Autowired
+    lateinit var livroUseCase: LivroUseCase
 
     @PostMapping
     fun adicionarLivro(@RequestBody @Valid request: LivroRequest): ResponseEntity<Void> {

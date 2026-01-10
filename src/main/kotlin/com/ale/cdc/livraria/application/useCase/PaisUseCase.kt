@@ -19,7 +19,7 @@ class PaisUseCase (
         if(paisRepositoryPort.existePorNome(pais.nome))
             throw PaisNomeException(pais.nome)
 
-        val country = Pais(pais.id, NomeNormalizer.normalizar(pais.nome))
+        val country = Pais(pais.id, NomeNormalizer.normalizaPrimeiraUpper(pais.nome))
         paisRepositoryPort.salvar(country)
     }
 
@@ -35,7 +35,7 @@ class PaisUseCase (
 
         val estado = Estado(
             id = null,
-            nome = NomeNormalizer.normalizar(cmd.nome),
+            nome = NomeNormalizer.normalizaPrimeiraUpper(cmd.nome),
             pais = pais
         )
         paisRepositoryPort.salvar(estado)

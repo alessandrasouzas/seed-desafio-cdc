@@ -13,7 +13,7 @@ class CategoriaUseCase (
     fun adicionarCategoria(categoria: Categoria) {
 
         //garante que a categoria deve sempre ser criada com o nome normalizado (ex: Suspense) para evitar duplicidade semântica
-        categoria.nome = NomeNormalizer.normalizar(categoria.nome)
+        categoria.nome = NomeNormalizer.normalizaPrimeiraUpper(categoria.nome)
 
         if (categoriaRepository.existsByNome(categoria.nome))
             throw CategoriaException(categoria.nome)

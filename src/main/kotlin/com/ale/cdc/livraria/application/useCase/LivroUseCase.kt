@@ -33,7 +33,7 @@ class LivroUseCase (
             throw CategoriaNotFoundException(cmd.categoriaId)
 
         val livro = Livro(
-            titulo = NomeNormalizer.normalizar(cmd.titulo),
+            titulo = NomeNormalizer.normalizaPrimeiraUpper(cmd.titulo),
             resumo = cmd.resumo,
             sumario = cmd.sumario,
             formatos = cmd.formato,

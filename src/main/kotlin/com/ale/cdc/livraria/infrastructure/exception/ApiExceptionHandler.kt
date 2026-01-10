@@ -3,6 +3,7 @@ package com.ale.cdc.livraria.infrastructure.exception
 import com.ale.cdc.livraria.domain.exception.AutorNotFoundException
 import com.ale.cdc.livraria.domain.exception.CategoriaException
 import com.ale.cdc.livraria.domain.exception.CategoriaNotFoundException
+import com.ale.cdc.livraria.domain.exception.DocumentoInvalidoException
 import com.ale.cdc.livraria.domain.exception.EmailException
 import com.ale.cdc.livraria.domain.exception.LivroNotFoundException
 import com.ale.cdc.livraria.domain.exception.PaisNomeException
@@ -86,5 +87,14 @@ class ApiExceptionHandler {
             .body(MessageError(
                 code = 404.toString(),
                 message = "Pais não encontrado."
+            ))
+
+    @ExceptionHandler(DocumentoInvalidoException::class)
+    fun handle(ex: DocumentoInvalidoException): ResponseEntity<MessageError> =
+        ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(MessageError(
+                code = 400.toString(),
+                message = "Documento invalido."
             ))
 }
