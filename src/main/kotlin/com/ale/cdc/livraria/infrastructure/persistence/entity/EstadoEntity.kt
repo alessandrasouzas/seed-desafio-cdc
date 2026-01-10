@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "estado")
+@Table(name = "estados")
 class EstadoEntity(
 
     @Id

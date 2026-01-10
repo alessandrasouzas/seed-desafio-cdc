@@ -1,17 +1,17 @@
 package com.ale.cdc.livraria.application.useCase
 
+import com.ale.cdc.livraria.application.controller.response.LivroDetalheResponse
 import com.ale.cdc.livraria.application.controller.response.LivroResponse
 import com.ale.cdc.livraria.application.controller.response.LivroTituloResponse
 import com.ale.cdc.livraria.application.port.AutorRepositoryPort
 import com.ale.cdc.livraria.application.port.CategoriaRepositoryPort
 import com.ale.cdc.livraria.application.port.LivroRepositoryPort
 import com.ale.cdc.livraria.application.useCase.command.CriarLivroCommand
-import com.ale.cdc.livraria.domain.livro.Livro
 import com.ale.cdc.livraria.domain.exception.AutorNotFoundException
 import com.ale.cdc.livraria.domain.exception.CategoriaNotFoundException
-import com.ale.cdc.livraria.domain.exception.LivroNotFoundException
 import com.ale.cdc.livraria.domain.exception.TituloException
 import com.ale.cdc.livraria.domain.livro.Isbn
+import com.ale.cdc.livraria.domain.livro.Livro
 import com.ale.cdc.livraria.domain.livro.UrlCapa
 import com.ale.cdc.livraria.domain.shared.NomeNormalizer
 import org.springframework.stereotype.Service
@@ -41,6 +41,7 @@ class LivroUseCase (
             numeroPaginas = cmd.numeroPaginas,
             isbn = Isbn(cmd.isbn),
             dataLancamento = cmd.dataPublicacao,
+            subtitulo = cmd.subtitulo,
             autor = null,
             categoria = null
         )
@@ -65,12 +66,8 @@ class LivroUseCase (
             }
     }
 
-    fun buscarLivro(id: Long): LivroResponse {
-        val result = try {
-            livroRepositoryPort.buscarLivro(id)
-        }catch (e: Exception){
-            throw LivroNotFoundException(id.toString())
-        }
-        return LivroResponse.toResponse(result)
+    fun buscarDetalheLivro(id: Long): LivroDetalheResponse {
+        val livro = livroRepositoryPort.buscarLivro(id)
+        return LivroDetalheResponse.toResponse(livro)
     }
 }

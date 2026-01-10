@@ -11,6 +11,7 @@ data class CriarLivroCommand (
     val numeroPaginas: Int,
     val capaUrl: String,
     val isbn: String,
+    val subtitulo: String,
     val dataPublicacao: LocalDate,
     val autorId: Long,
     val categoriaId: Long

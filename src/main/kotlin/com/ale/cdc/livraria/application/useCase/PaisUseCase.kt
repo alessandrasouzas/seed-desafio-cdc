@@ -32,7 +32,6 @@ class PaisUseCase (
             throw PaisNotFoundException(cmd.paisId)
 
         val pais = paisRepositoryPort.buscarPorId(cmd.paisId)
-            ?: throw PaisNotFoundException(cmd.paisId)
 
         val estado = Estado(
             id = null,

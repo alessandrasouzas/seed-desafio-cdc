@@ -28,6 +28,8 @@ data class LivroRequest(
     @field:NotBlank
     val isbn: String,
 
+    val subtitulo: String,
+
     @field:NotNull
     @Future
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -59,6 +61,7 @@ data class LivroRequest(
         capaUrl = capaUrl,
         numeroPaginas = numeroPaginas,
         isbn = isbn,
+        subtitulo = subtitulo,
         dataPublicacao = dataPublicacao,
         autorId = autorId,
         categoriaId = categoriaId

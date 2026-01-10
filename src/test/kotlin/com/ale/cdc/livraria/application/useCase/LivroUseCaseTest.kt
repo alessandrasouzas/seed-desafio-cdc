@@ -46,7 +46,8 @@ class LivroUseCaseTest {
         capaUrl = "/img/capa.png",
         dataPublicacao = LocalDate.now().plusDays(2),
         autorId = 1L,
-        categoriaId = 2L
+        categoriaId = 2L,
+        subtitulo = "essencial"
     )
 
     private fun livro() = Livro (
@@ -65,17 +66,18 @@ class LivroUseCaseTest {
         capaLivro = UrlCapa("/img/capa.png"),
         dataLancamento = LocalDate.now().plusDays(2),
         autor = null,
-        categoria = null
+        categoria = null,
+        subtitulo = "essencial"
     )
 
     @Test
     fun `deve salvar livro com sucesso`() {
         val cmd = cmd()
 
-        every { autorRepository.existePorId(cmd.autorId) } returns true
-        every { categoriaRepository.existePorId(cmd.categoriaId) } returns true
-        every { livroRepository.existePorTitulo(cmd.titulo) } returns false
-        every { livroRepository.salvar(any(), cmd.autorId, cmd.categoriaId) } just Runs
+        every { autorRepository.existePorId(any())} returns true
+        every { categoriaRepository.existePorId(any()) } returns true
+        every { livroRepository.existePorTitulo(any()) } returns false
+        every { livroRepository.salvar(any(), any(), any()) } just Runs
 
         useCase.adicionarLivro(cmd)
 
@@ -103,9 +105,9 @@ class LivroUseCaseTest {
     fun `nao deve permitir salvar livro com titulo duplicado`() {
         val cmd = cmd()
 
-        every { autorRepository.existePorId(cmd.autorId) } returns true
-        every { categoriaRepository.existePorId(cmd.categoriaId) } returns true
-        every { livroRepository.existePorTitulo(cmd.titulo) } returns true
+        every { autorRepository.existePorId(any()) } returns true
+        every { categoriaRepository.existePorId(any()) } returns true
+        every { livroRepository.existePorTitulo(any()) } returns true
 
         assertThrows<TituloException> {
             useCase.adicionarLivro(cmd)

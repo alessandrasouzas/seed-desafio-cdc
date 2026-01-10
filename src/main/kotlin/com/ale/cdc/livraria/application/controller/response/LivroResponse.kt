@@ -11,7 +11,7 @@ data class LivroResponse(
     val titulo: String,
     val resumo: String?,
     val sumario: String?,
-    val formato: List<Formato>,
+    val formato: List<Formato>?,
     val numeroPaginas: Int?,
     val isbn: String?,
     val dataLancamento: LocalDate?,

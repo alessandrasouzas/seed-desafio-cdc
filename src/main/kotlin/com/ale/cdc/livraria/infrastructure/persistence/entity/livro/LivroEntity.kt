@@ -31,6 +31,7 @@ data class LivroEntity(
     val resumo: String,
     val sumario: String,
     val capaUrl: String,
+    val subtitulo: String,
     val numeroPaginas: Int,
     @Column(unique = true)
     val isbn: String,
@@ -61,7 +62,7 @@ data class LivroEntity(
                 titulo = livro.titulo,
                 resumo = livro.resumo,
                 sumario = livro.sumario,
-                formatos = livro.formatos.map {
+                formatos = livro.formatos!!.map {
                     FormatoEmbeddable(
                         tipo = it.tipo,
                         preco = it.preco
@@ -71,6 +72,7 @@ data class LivroEntity(
                 numeroPaginas = livro.numeroPaginas,
                 isbn = livro.isbn.codigoLivro,
                 data_publicacao = livro.dataLancamento,
+                subtitulo = livro.subtitulo!!,
                 autor = autorEntity,
                 categoria = categoriaEntity
             )
@@ -92,6 +94,7 @@ data class LivroEntity(
             numeroPaginas = numeroPaginas,
             isbn = Isbn(isbn),
             dataLancamento = data_publicacao,
+            subtitulo = subtitulo,
             autor = autor.toDomain(),
             categoria = categoria.toDomain()
         )

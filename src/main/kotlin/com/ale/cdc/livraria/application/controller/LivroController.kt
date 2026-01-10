@@ -1,6 +1,7 @@
 package com.ale.cdc.livraria.application.controller
 
 import com.ale.cdc.livraria.application.controller.request.LivroRequest
+import com.ale.cdc.livraria.application.controller.response.LivroDetalheResponse
 import com.ale.cdc.livraria.application.controller.response.LivroResponse
 import com.ale.cdc.livraria.application.controller.response.LivroTituloResponse
 import com.ale.cdc.livraria.application.useCase.LivroUseCase
@@ -32,7 +33,7 @@ class LivroController (
     }
 
     @GetMapping("/detalhe/{id}")
-    fun buscarLivroDetalhe(@PathVariable id: Long): LivroResponse{
-        return livroUseCase.buscarLivro(id)
+    fun buscarLivroDetalhe(@PathVariable id: Long): LivroDetalheResponse{
+        return livroUseCase.buscarDetalheLivro(id)
     }
 }
