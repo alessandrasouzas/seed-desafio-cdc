@@ -16,6 +16,7 @@ data class LivroDetalheResponse (
     val numeroPaginas: Int,
     val isbn: String,
     val dataLancamento: LocalDate,
+    val capaLivro: String?,
     val autor: Autor,
     val categoria: Categoria
 ){
@@ -31,6 +32,7 @@ data class LivroDetalheResponse (
                 numeroPaginas = livro.numeroPaginas,
                 isbn = livro.isbn.codigoLivro,
                 dataLancamento = livro.dataLancamento,
+                capaLivro = livro.capaLivro?.url,
                 autor = livro.autor!!,
                 categoria = livro.categoria!!
             )

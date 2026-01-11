@@ -9,5 +9,5 @@ interface LivroRepositoryPort {
     fun salvar(livro: Livro, autorId: Long, categoriaId: Long)
     fun buscarLivros(): List<Livro>
     fun buscarTitulos(): List<LivroTituloProjection>
-    fun buscarLivro(id: Long): Livro
+    fun buscarLivroDetalhe(id: Long): Livro
 }

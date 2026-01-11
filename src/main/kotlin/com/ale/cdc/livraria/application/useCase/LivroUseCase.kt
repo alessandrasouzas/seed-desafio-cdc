@@ -67,7 +67,7 @@ class LivroUseCase (
     }
 
     fun buscarDetalheLivro(id: Long): LivroDetalheResponse {
-        val livro = livroRepositoryPort.buscarLivro(id)
+        val livro = livroRepositoryPort.buscarLivroDetalhe(id)
         return LivroDetalheResponse.toResponse(livro)
     }
 }

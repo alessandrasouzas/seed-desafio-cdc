@@ -1,9 +1,12 @@
 package com.ale.cdc.livraria.application.useCase
 
+import com.ale.cdc.livraria.application.controller.response.LivroDetalheResponse
 import com.ale.cdc.livraria.application.port.AutorRepositoryPort
 import com.ale.cdc.livraria.application.port.CategoriaRepositoryPort
 import com.ale.cdc.livraria.application.port.LivroRepositoryPort
 import com.ale.cdc.livraria.application.useCase.command.CriarLivroCommand
+import com.ale.cdc.livraria.domain.Autor
+import com.ale.cdc.livraria.domain.Categoria
 import com.ale.cdc.livraria.domain.exception.AutorNotFoundException
 import com.ale.cdc.livraria.domain.exception.CategoriaNotFoundException
 import com.ale.cdc.livraria.domain.exception.TituloException
@@ -17,6 +20,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.*
 import java.math.BigDecimal
 import java.time.LocalDate
+import kotlin.Long
 import kotlin.test.assertEquals
 
 class LivroUseCaseTest {
@@ -65,8 +69,8 @@ class LivroUseCaseTest {
         isbn = Isbn("123-456"),
         capaLivro = UrlCapa("/img/capa.png"),
         dataLancamento = LocalDate.now().plusDays(2),
-        autor = null,
-        categoria = null,
+        autor = Autor(nome = "Uncle bob", email = "bob@uncle.com", descricao = "tio bob"),
+        categoria = Categoria(nome = "Programação"),
         subtitulo = "essencial"
     )
 
@@ -162,4 +166,18 @@ class LivroUseCaseTest {
             livroRepository.salvar(any(), any(), any())
         }
     }
+
+    @Test
+    fun `nao buscar livro detalhe com sucesso`() {
+        val livro = livro()
+
+        every{livroRepository.buscarLivroDetalhe(livro.id!!)} returns livro
+
+        val resultado = useCase.buscarDetalheLivro(livro.id!!)
+
+        assertEquals("Clean Architecture", resultado.titulo)
+        assertEquals("/img/capa.png", resultado.capaLivro)
+
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.ale.cdc.livraria.infrastructure.persistence.adapter
 
-import com.ale.cdc.livraria.application.controller.response.LivroResponse
 import com.ale.cdc.livraria.application.port.AutorRepositoryPort
 import com.ale.cdc.livraria.application.port.CategoriaRepositoryPort
 import com.ale.cdc.livraria.application.port.LivroRepositoryPort
@@ -39,7 +38,7 @@ class LivroRepositoryAdapter (
         return jpaRepository.findAllByOrderByIdAsc()
     }
 
-    override fun buscarLivro(id: Long): Livro {
+    override fun buscarLivroDetalhe(id: Long): Livro {
         return jpaRepository.getReferenceById(id).toDomain()
     }
 
